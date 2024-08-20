@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Movies Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This is the frontend of a movie application that allows users to search for movies, filter by genres, and view movie details. The application is built with React and TypeScript, and uses Redux for state management.
 
-In the project directory, you can run:
+## Technologies
 
-### `npm start`
+- **React**: Library for building user interfaces.
+- **TypeScript**: Superset of JavaScript that adds static typing.
+- **Redux**: Library for global state management.
+- **Material-UI**: UI component library.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Make sure you have Node.js and npm installed on your machine. You can download them from [nodejs.org](https://nodejs.org/).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Install dependencies
+```
+npm install
+```
 
-### `npm run build`
+2. Configure environment variables
+```
+REACT_APP_API=https://localhost:7216/
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Start development server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This will start the development server and open the application at http://localhost:3000.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features
+- Movie Search: Allows searching for movies by title or actor.
+- Genre Filtering: Filters displayed movies based on selected genres.
+- Movie List: Shows a list of movies with images and titles.
+- Movie Details: Displays detailed information about a selected movie.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Navigation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The application uses React Router for navigating between pages:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Home Page (/): This is the default page that loads when the application starts. It includes the SearchMovieBar component for searching movies and filtering by genres, and the MovieList component to display a list of movies.
 
-## Learn More
+- Movie Details Page (/movies/:movie_id): When a user selects a movie from the list, they are redirected to the Movie Details Page. The URL includes the movie's ID as a parameter (e.g., /movies/123). This page displays detailed information about the selected movie.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+By structuring the navigation this way, users can easily search for movies, filter results by genre, and view details of individual movies by clicking on them from the list.

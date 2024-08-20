@@ -51,3 +51,35 @@ The application uses React Router for navigating between pages:
 - Movie Details Page (/movies/:movie_id): When a user selects a movie from the list, they are redirected to the Movie Details Page. The URL includes the movie's ID as a parameter (e.g., /movies/123). This page displays detailed information about the selected movie.
 
 By structuring the navigation this way, users can easily search for movies, filter results by genre, and view details of individual movies by clicking on them from the list.
+
+## Services
+
+The `services` directory includes functions for interacting with the movie-related API endpoints. These functions are responsible for making HTTP requests to the backend and returning data to the application. Below is a summary of the available services:
+
+### `getAllMovies`
+
+- **Purpose**: Retrieves a list of all movies.
+- **Endpoint**: `GET /movies`
+- **Returns**: A list of movie objects.
+
+### `searchMovies`
+
+- **Purpose**: Searches for movies based on a search query and optional filters.
+- **Endpoint**: `GET /movies/search/{query}`
+- **Parameters**:
+  - `query`: The search term used to find movies.
+  - `genres` (optional): A list of genre names to filter the search results.
+  - `includeDeleted` (optional): A flag indicating whether to include deleted movies in the search results.
+- **Returns**: A list of movies that match the search criteria.
+
+### `getMovieById`
+
+- **Purpose**: Fetches detailed information about a specific movie using its ID.
+- **Endpoint**: `GET /movies/{id}`
+- **Parameters**:
+  - `id`: The ID of the movie to retrieve.
+  - `hasActors` (optional): A flag to include actor information in the response.
+  - `hasGenres` (optional): A flag to include genre information in the response.
+- **Returns**: Detailed information about the specified movie.
+
+These services are used to handle data fetching and manipulation within the application, providing a seamless way to interact with the movie database.

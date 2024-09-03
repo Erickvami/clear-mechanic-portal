@@ -46,7 +46,7 @@ export const getMovieById = async (id: number, hasActors?: boolean, hasGenres?: 
 
         const response = await fetch(`${API_BASE_URL}/${id}?${queryParams}`);
         if (!response.ok) {
-            throw new Error('Failed to fetch movie');
+            window.location.href = '/notfound';
         }
         return await response.json();
     } catch (error) {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Chip, Stack, styled } from '@mui/material';
+import { Card, Chip, IconButton, Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
+import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import { AppDispatch } from '../../redux/store';
 import { useDispatch } from 'react-redux';
@@ -10,28 +11,19 @@ import { Genre } from '../../models/genre.model';
 const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
     const dispatch: AppDispatch = useDispatch();
     const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
-
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        width: '100%',
-        '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-              width: '20ch',
-            },
-          },
-        },
-    }));
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
     const onKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             dispatch(getMovies({ query: event.currentTarget.value, genres: selectedGenres.map(g => g?.name ?? '')}));
         }
     };
+
+    const onClear = () => {
+        setSearchQuery('');
+        setSelectedGenres([]);
+        dispatch(getMovies({ query: '', genres: [] }));
+    }
 
     const onGenreClick = (genre: Genre) => {
         setSelectedGenres((prevSelected) => {
@@ -50,11 +42,20 @@ const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
             <div className='search-movie-bar-search-icon-wrapper'>
                 <SearchIcon />
             </div>
-            <StyledInputBase
+            <InputBase
                 placeholder="Search…"
                 onKeyUp={onKeyUp}
+                value={searchQuery}
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => setSearchQuery(e.currentTarget.value)}
+                className='search-movie-bar-search-input'
+                
             />
+            {searchQuery && (
+                    <IconButton onClick={onClear} sx={{position: 'absolute', right: 0}}>
+                        <ClearIcon />
+                    </IconButton>
+                )}
         </div>
         <br></br>
         <Stack direction={'row'} gap={1}>

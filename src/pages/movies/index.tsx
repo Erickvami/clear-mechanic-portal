@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MovieList from '../../components/movie-list';
 import './index.scss'
 import { Stack } from '@mui/material';
 import SearchMovieBar from '../../components/search-movie-bar';
-import { getAllGenres } from '../../services/genres.service';
 import { Genre } from '../../models/genre.model';
+import { useLoaderData } from 'react-router-dom';
 
 const MoviesPage: React.FC = () => {
-    const [genres, setGenres] = useState<Genre[] | null>([]);
-    useEffect(() => {
-        getAllGenres().then(g => setGenres(g));
-    }, [])
+    const { genres } = useLoaderData() as { genres: Genre[] };
+
     return (<Stack className='movies page' alignItems={'center'}>
         <SearchMovieBar genres={genres} />
         <MovieList />

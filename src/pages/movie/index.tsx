@@ -1,18 +1,11 @@
 import { Avatar, Card, CardActionArea, CardContent, CardHeader, CardMedia, Chip, Stack, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { Movie } from '../../models/movie.model';
-import { getMovieById } from '../../services/movies.service';
 import './index.scss';
 
 const MoviePage: React.FC = () => {
-    const { movie_id } = useParams<{ movie_id: string }>();
-    const [movie, setMovie] = useState<Movie | null>(null)
-    useEffect(() => {
-        if (!isNaN(Number(movie_id)))
-            getMovieById(Number(movie_id), true, true)
-                .then(m => setMovie(m));
-    }, [movie_id]);
+    const { movie } = useLoaderData() as { movie: Movie };
 
     return (<Stack className='movie page' justifyContent={'center'} alignItems={'center'}>
         {   

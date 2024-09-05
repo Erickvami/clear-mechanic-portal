@@ -31,7 +31,7 @@ const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
                 ? prevSelected.filter(g => g.id !== genre.id)
                 : [...prevSelected, genre];
             
-            dispatch(getMovies({ query: '', genres: updatedGenres.map(g => g?.name ?? '') }));
+            dispatch(getMovies({ query: searchQuery, genres: updatedGenres.map(g => g?.name ?? '') }));
 
             return updatedGenres;
         });

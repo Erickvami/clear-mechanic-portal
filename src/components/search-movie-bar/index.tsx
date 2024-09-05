@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Card, Chip, IconButton, Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -13,11 +13,11 @@ const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
     const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
-    const onKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const onKeyUp = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             dispatch(getMovies({ query: event.currentTarget.value, genres: selectedGenres.map(g => g?.name ?? '')}));
         }
-    };
+    }, [dispatch, selectedGenres]);
 
     const onClear = () => {
         setSearchQuery('');
@@ -25,7 +25,7 @@ const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
         dispatch(getMovies({ query: '', genres: [] }));
     }
 
-    const onGenreClick = (genre: Genre) => {
+    const onGenreClick = useCallback((genre: Genre) => {
         setSelectedGenres((prevSelected) => {
             const updatedGenres = prevSelected.find(g => g.id === genre.id)
                 ? prevSelected.filter(g => g.id !== genre.id)
@@ -35,7 +35,7 @@ const SearchMovieBar: React.FC<({genres: Genre[] | null})> = ({genres}) => {
 
             return updatedGenres;
         });
-    };
+    }, [dispatch, searchQuery]);
 
     return (<Card className='search-movie-bar'>
         <div className='search-movie-bar-search'>

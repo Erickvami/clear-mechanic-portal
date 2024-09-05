@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { getMovies } from '../../redux/slices/movies.slice';
@@ -14,6 +14,8 @@ const MovieList: React.FC = () => {
         dispatch(getMovies());
     }, [dispatch]);
 
+    const movieCards = useMemo(() => data?.map((movie) => <MovieCard key={movie.id} movie={movie} />), [data]);
+
     if (loading)
         return <Stack direction={'column'} gap={1}>
         <Skeleton variant="rectangular" width={300} height={60} />
@@ -26,7 +28,7 @@ const MovieList: React.FC = () => {
 
     return (<div className='movie-list'>
         <Grid2 container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}} gap={2} justifyContent={'center'}>
-            {data?.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+            {movieCards}
         </Grid2>
     </div>)
 }
